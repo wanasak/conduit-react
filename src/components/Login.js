@@ -8,6 +8,7 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
+import ListErrors from './ListErrors';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -48,14 +49,34 @@ export class Login extends Component {
               <p className="text-xs-center">
                 <Link to="/register">Need an account?</Link>
               </p>
+              <ListErrors errors={this.props.errors} />
               <form onSubmit={this.submitForm(email, password)}>
                 <fieldset>
                   <fieldset className="form-group">
                     <input
-                      type="text"
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={this.changeEmail}
                       className="form-control form-control-lg"
                     />
                   </fieldset>
+                  <fieldset className="form-group">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={this.changePassword}
+                      className="form-control form-control-lg"
+                    />
+                  </fieldset>
+                  <button
+                    className="btn btn-lg btn-primary pull-xs-right"
+                    type="submit"
+                    disabled={this.props.inProgress}
+                  >
+                    Sign in
+                  </button>
                 </fieldset>
               </form>
             </div>

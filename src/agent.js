@@ -47,8 +47,24 @@ const Auth = {
   save: user => request.put('/user', { user })
 };
 
+const Tags = {
+  getAll: () => request.get(`/tags`)
+};
+
+const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+const Articles = {
+  all: page => request.get(`/articles?${limit(10, page)}`),
+  byTag: (tag, page) =>
+    request.get(`/articles?tag=${encode(tag)}&${limit(10, page)}`),
+  feed: () => request.get(`/articles/feed?limit=10&offset=0`),
+  favorite: slug => request.post(`/articles/${slug}/favorite`),
+  unfavorite: slug => request.del(`/articles/${slug}/favorite`)
+};
+
 export default {
   Auth,
+  Tags,
+  Articles,
   setToken: _token => {
     token = _token;
   }

@@ -7,6 +7,7 @@ import {
   REGISTER,
   REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
+import ListErrors from './ListErrors';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -54,7 +55,7 @@ class Register extends React.Component {
               <p className="text-xs-center">
                 <Link to="/login">Have an account?</Link>
               </p>
-
+              <ListErrors errors={this.props.errors} />
               <form onSubmit={this.submitForm(username, email, password)}>
                 <fieldset>
                   <fieldset className="form-group">
