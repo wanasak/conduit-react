@@ -58,7 +58,8 @@ const Articles = {
     request.get(`/articles?tag=${encode(tag)}&${limit(10, page)}`),
   feed: () => request.get(`/articles/feed?limit=10&offset=0`),
   favorite: slug => request.post(`/articles/${slug}/favorite`),
-  unfavorite: slug => request.del(`/articles/${slug}/favorite`)
+  unfavorite: slug => request.del(`/articles/${slug}/favorite`),
+  get: slug => request.get(`/articles/${slug}`)
 };
 
 export default {
