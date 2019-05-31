@@ -6,12 +6,14 @@ import auth from './reducers/auth';
 import common from './reducers/common';
 import articleList from './reducers/articleList';
 import editor from './reducers/editor';
+import article from './reducers/article';
 
 export default combineReducers({
   auth,
   common,
   home,
   editor,
+  article,
   articleList,
   router: routerReducer
 });
