@@ -1,15 +1,15 @@
+import ListErrors from './ListErrors';
 import React from 'react';
+import agent from '../agent';
 import { connect } from 'react-redux';
-import { ListErrors } from './ListErrors';
 import {
   ADD_TAG,
+  EDITOR_PAGE_LOADED,
   REMOVE_TAG,
-  EDITOR_PAGE_UNLOADED,
-  UPDATE_FIELD_EDITOR,
   ARTICLE_SUBMITTED,
-  EDITOR_PAGE_LOADED
+  EDITOR_PAGE_UNLOADED,
+  UPDATE_FIELD_EDITOR
 } from '../constants/actionTypes';
-import agent from '../agent';
 
 const mapStateToProps = state => ({
   ...state.editor
@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
   onLoad: payload => dispatch({ type: EDITOR_PAGE_LOADED, payload }),
   onRemoveTag: tag => dispatch({ type: REMOVE_TAG, tag }),
   onSubmit: payload => dispatch({ type: ARTICLE_SUBMITTED, payload }),
-  onUnload: () => dispatch({ type: EDITOR_PAGE_UNLOADED }),
+  onUnload: payload => dispatch({ type: EDITOR_PAGE_UNLOADED }),
   onUpdateField: (key, value) =>
     dispatch({ type: UPDATE_FIELD_EDITOR, key, value })
 });
@@ -69,7 +69,7 @@ class Editor extends React.Component {
     if (this.props.match.params.slug !== nextProps.match.params.slug) {
       if (nextProps.match.params.slug) {
         this.props.onUnload();
-        return this.props.onUnload(
+        return this.props.onLoad(
           agent.Articles.get(this.props.match.params.slug)
         );
       }
@@ -102,9 +102,9 @@ class Editor extends React.Component {
                 <fieldset>
                   <fieldset className="form-group">
                     <input
+                      className="form-control form-control-lg"
                       type="text"
                       placeholder="Article Title"
-                      className="form-control form-control-lg"
                       value={this.props.title}
                       onChange={this.changeTitle}
                     />
@@ -112,9 +112,9 @@ class Editor extends React.Component {
 
                   <fieldset className="form-group">
                     <input
+                      className="form-control"
                       type="text"
                       placeholder="What's this article about?"
-                      className="form-control"
                       value={this.props.description}
                       onChange={this.changeDescription}
                     />
@@ -122,9 +122,9 @@ class Editor extends React.Component {
 
                   <fieldset className="form-group">
                     <textarea
-                      placeholder="Write your article (in markdown)"
-                      rows="8"
                       className="form-control"
+                      rows="8"
+                      placeholder="Write your article (in markdown)"
                       value={this.props.body}
                       onChange={this.changeBody}
                     />
@@ -132,9 +132,9 @@ class Editor extends React.Component {
 
                   <fieldset className="form-group">
                     <input
+                      className="form-control"
                       type="text"
                       placeholder="Enter tags"
-                      className="form-control"
                       value={this.props.tagInput}
                       onChange={this.changeTagInput}
                       onKeyUp={this.watchForEnter}
@@ -143,7 +143,7 @@ class Editor extends React.Component {
                     <div className="tag-list">
                       {(this.props.tagList || []).map(tag => {
                         return (
-                          <span key={tag} className="tag-default tag-pill">
+                          <span className="tag-default tag-pill" key={tag}>
                             <i
                               className="ion-close-round"
                               onClick={this.removeTagHandler(tag)}
@@ -154,16 +154,16 @@ class Editor extends React.Component {
                       })}
                     </div>
                   </fieldset>
-                </fieldset>
 
-                <button
-                  type="button"
-                  className="btn btn-lg btn-primary pull-xs-right"
-                  onClick={this.submitForm}
-                  disabled={this.props.inProgress}
-                >
-                  Publish Article
-                </button>
+                  <button
+                    className="btn btn-lg pull-xs-right btn-primary"
+                    type="button"
+                    disabled={this.props.inProgress}
+                    onClick={this.submitForm}
+                  >
+                    Publish Article
+                  </button>
+                </fieldset>
               </form>
             </div>
           </div>
