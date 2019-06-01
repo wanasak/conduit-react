@@ -170,3 +170,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Profile);
+// Use for profile favorite
+export { mapStateToProps, Profile };
