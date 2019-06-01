@@ -11,6 +11,7 @@ import { store } from '../store';
 import { push } from 'react-router-redux';
 import Settings from './Settings';
 import Editor from './Editor';
+import Profile from './Profile';
 
 const mapStateToProps = state => {
   return {
@@ -56,6 +57,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/editor" component={Editor} />
             <Route path="/settings" component={Settings} />
+            <Route path="/@:username" component={Profile} />
           </Switch>
         </div>
       );

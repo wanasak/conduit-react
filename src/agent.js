@@ -57,6 +57,8 @@ const Articles = {
   all: page => request.get(`/articles?${limit(10, page)}`),
   byTag: (tag, page) =>
     request.get(`/articles?tag=${encode(tag)}&${limit(10, page)}`),
+  byAuthor: (author, page) =>
+    request.get(`/articles?author=${encode(author)}&${limit(5, page)}`),
   feed: () => request.get(`/articles/feed?limit=10&offset=0`),
   favorite: slug => request.post(`/articles/${slug}/favorite`),
   unfavorite: slug => request.del(`/articles/${slug}/favorite`),
@@ -66,10 +68,17 @@ const Articles = {
   create: article => request.post('/articles', { article })
 };
 
+const Profile = {
+  follow: username => request.get(`/profiles/${username}/follow`),
+  unfollow: username => request.get(`/profiles/${username}/unfollow`),
+  get: username => request.get(`/profiles/${username}`)
+};
+
 export default {
   Auth,
   Tags,
   Articles,
+  Profile,
   setToken: _token => {
     token = _token;
   }
