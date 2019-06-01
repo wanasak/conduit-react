@@ -1,19 +1,20 @@
 import {
   APP_LOAD,
-  REGISTER,
-  LOGIN,
-  REGISTER_PAGE_UNLOADED,
-  LOGIN_PAGE_UNLOADED,
-  ARTICLE_PAGE_UNLOADED,
-  HOME_PAGE_UNLOADED,
-  LOGOUT,
   REDIRECT,
+  LOGOUT,
   ARTICLE_SUBMITTED,
   SETTINGS_SAVED,
+  LOGIN,
+  REGISTER,
+  DELETE_ARTICLE,
+  ARTICLE_PAGE_UNLOADED,
   EDITOR_PAGE_UNLOADED,
+  HOME_PAGE_UNLOADED,
   PROFILE_PAGE_UNLOADED,
+  PROFILE_FAVORITES_PAGE_UNLOADED,
   SETTINGS_PAGE_UNLOADED,
-  PROFILE_FAVORITES_PAGE_UNLOADED
+  LOGIN_PAGE_UNLOADED,
+  REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
 
 const defaultState = {
@@ -52,6 +53,8 @@ export default (state = defaultState, action) => {
         token: action.error ? null : action.payload.user.token,
         currentUser: action.error ? null : action.payload.user
       };
+    case DELETE_ARTICLE:
+      return { ...state, redirectTo: '/' };
     case ARTICLE_PAGE_UNLOADED:
     case EDITOR_PAGE_UNLOADED:
     case HOME_PAGE_UNLOADED:

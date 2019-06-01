@@ -13,6 +13,7 @@ import Settings from './Settings';
 import Editor from './Editor';
 import Profile from './Profile';
 import ProfileFavorites from './ProfileFavorites';
+import Article from './Article';
 
 const mapStateToProps = state => {
   return {
@@ -56,7 +57,9 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
+            <Route path="/editor/:slug" component={Editor} />
             <Route path="/editor" component={Editor} />
+            <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />
             <Route path="/@:username/favorites" component={ProfileFavorites} />
             <Route path="/@:username" component={Profile} />

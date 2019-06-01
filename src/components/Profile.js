@@ -146,18 +146,18 @@ class Profile extends React.Component {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="container">
-            <div className="row">
-              <div className="col-xs-12 col-md-10 offset-md-1">
-                <div className="articles-toggle">{this.renderTabs()}</div>
-                <ArticleList
-                  pager={this.props.pager}
-                  articles={this.props.articles}
-                  articlesCount={this.props.articlesCount}
-                  state={this.props.currentPage}
-                />
-              </div>
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12 col-md-10 offset-md-1">
+              <div className="articles-toggle">{this.renderTabs()}</div>
+              <ArticleList
+                pager={this.props.pager}
+                articles={this.props.articles}
+                articlesCount={this.props.articlesCount}
+                state={this.props.currentPage}
+              />
             </div>
           </div>
         </div>

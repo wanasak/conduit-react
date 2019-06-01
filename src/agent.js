@@ -76,11 +76,20 @@ const Profile = {
   get: username => request.get(`/profiles/${username}`)
 };
 
+const Comments = {
+  create: (slug, comment) =>
+    request.post(`/articles/${slug}/comments`, comment),
+  delete: (slug, commentId) =>
+    request.del(`/articles/${slug}/comments/${commentId}`),
+  forArticle: slug => request.get(`/articles/${slug}/comments`)
+};
+
 export default {
   Auth,
   Tags,
   Articles,
   Profile,
+  Comment: Comments,
   setToken: _token => {
     token = _token;
   }
